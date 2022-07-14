@@ -22,17 +22,16 @@ class onClickListener {
     }
 }
 
-let debugMode = '';
-let odooVersion = 'legacy';
+let debugMode = '0';
 
 const onClickActivateDebugMode = (tab, click) => {
     if (click <= 2) {
         const debugOptions = {
-            0: [odooVersion === 'legacy' ? '' : '0', '/images/icons/off_48.png'],
+            0: ['0', '/images/icons/off_48.png'],
             1: ['1', '/images/icons/on_48.png'],
             2: ['assets', '/images/icons/super_48.png'],
         };
-        const selectedMode = debugMode && click === 1 ? 0 : click;
+        const selectedMode = debugMode !== '0' && click === 1 ? 0 : click;
         const tabUrl = new URL(tab.url);
         const [debugOption, path] = debugOptions[selectedMode];
         const params = new URLSearchParams(tabUrl.search);
@@ -46,18 +45,17 @@ const onClickActivateDebugMode = (tab, click) => {
 const adaptIcon = () => {
     chrome.tabs.query({active: true, currentWindow: true}, tabs => {
         if (tabs.length) {
-            chrome.tabs.sendMessage(tabs[0].id, {message: 'getOdooDebugInfo'}, response => {
+            chrome.tabs.sendMessage(tabs[0].id, {message: 'getFlectraDebugInfo'}, response => {
                 if (chrome.runtime.lastError) {
                     return;
                 }
                 let path = '/images/icons/off_48.png';
-                if (response.odooVersion) {
+                if (response.debugMode) {
                     if (response.debugMode === 'assets') {
                         path = '/images/icons/super_48.png';
                     } else if (response.debugMode === '1') {
                         path = '/images/icons/on_48.png';
                     }
-                    odooVersion = response.odooVersion;
                     debugMode = response.debugMode;
                 }
                 browserAction.setIcon({ path });

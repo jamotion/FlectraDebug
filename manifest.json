@@ -1,8 +1,8 @@
 {
     "manifest_version": 3,
-    "name": "Odoo Debug",
+    "name": "Flectra Debug",
     "version": "5.0",
-    "description": "Minimal and fast extension to toggle debug mode of Odoo",
+    "description": "Minimal and fast extension to toggle debug mode of Flectra",
     "action": {
         "default_title": "- Click for normal debug \n- Double click for debug with assets",
         "default_icon": {
@@ -16,7 +16,7 @@
         "32": "/images/icons/off_32.png",
         "48": "/images/icons/off_48.png"
     },
-    "author": "Droggol Infotech Private Limited",
+    "author": "Jamotion GmbH",
     "background": {
         "service_worker": "background.js"
     },

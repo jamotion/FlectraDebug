@@ -5,15 +5,14 @@ scriptEl.src = getURL('pageScript.js');
 (document.head || document.documentElement).appendChild(scriptEl);
 
 chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
-    if (request.message === 'getOdooDebugInfo') {
+    if (request.message === 'getFlectraDebugInfo') {
         const body = document.getElementsByTagName('body')[0];
-        if (body && body.hasAttribute('data-odoo')) {
+        if (body && body.hasAttribute('data-flectra-debug-mode')) {
             sendResponse({
-                odooVersion: body.getAttribute('data-odoo'),
-                debugMode: body.getAttribute('data-odoo-debug-mode'),
+                debugMode: body.getAttribute('data-flectra-debug-mode'),
             });
         } else {
-            sendResponse({ odooVersion: false });
+            sendResponse();
         }
     }
 });
